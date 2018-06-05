@@ -29,8 +29,22 @@ public class LeptImpl implements LeptJson{
     private static void leptParseWhitespace(LeptContext leptContext){
         char[] json = leptContext.getJson().toCharArray();
         int i = 0;
-        while(json[i] == ' ' || json[i] == '\t' || json[i] == '\n' || json[i] == '\r'){
-            i ++;
+//        while(json[i] == ' ' || json[i] == '\t' || json[i] == '\n' || json[i] == '\r'){
+//            i ++;
+//        }
+//        for(Character character : json){
+//            if(json[i] == ' ' || json[i] == '\t' || json[i] == '\n' || json[i] == '\r'){
+//                i++;
+//            }else{
+//                return
+//            }
+//        }
+        for(i = 0 ; i < json.length ; i ++){
+            if(json[i] == ' ' || json[i] == '\t' || json[i] == '\n' || json[i] == '\r'){
+
+            }else{
+                break;
+            }
         }
         leptContext.setJson(leptContext.getJson().substring(i));
     }
