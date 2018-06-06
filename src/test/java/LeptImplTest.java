@@ -54,5 +54,9 @@ public class LeptImplTest {
         assertEquals(leptValue.getLeptType(), LEPT_TRUE);
         assertEquals(leptJson.leptParse(leptValue, "\ntrue"), LEPT_PARSE_OK);
         assertEquals(leptValue.getLeptType(), LEPT_TRUE);
+
+
+        assertEquals(leptJson.leptParse(leptValue, "\ntr"), LEPT_PARSE_OK);
+        assertEquals(leptValue.getLeptType(), LEPT_TRUE);
     }
 }
