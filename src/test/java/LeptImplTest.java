@@ -56,7 +56,7 @@ public class LeptImplTest {
         assertEquals(leptValue.getLeptType(), LEPT_TRUE);
 
 
-        assertEquals(leptJson.leptParse(leptValue, "\ntr"), LEPT_PARSE_OK);
-        assertEquals(leptValue.getLeptType(), LEPT_TRUE);
+        assertEquals(leptJson.leptParse(leptValue, "\ntr"), LEPT_PARSE_INVALID_VALUE);
+        assertEquals(leptValue.getLeptType(), LEPT_NULL);
     }
 }

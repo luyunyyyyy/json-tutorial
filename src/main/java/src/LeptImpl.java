@@ -22,6 +22,7 @@ public class LeptImpl implements LeptJson{
             leptParseWhitespace(leptContext);
             if(leptContext.getJson().length()!=0){
                 // 解析数字的时候 这个地方出现了问题 导致返回值出错
+
                 result =  LEPT_PARSE_ROOT_NOT_SINGULAR;
             }
         }
@@ -51,8 +52,10 @@ public class LeptImpl implements LeptJson{
     }
     private static ResultType leptParse(LeptContext leptContext, LeptValue leptValue, String parseStr, LeptType type){
         char[] json = leptContext.getJson().toCharArray();
-        assert json[0] == parseStr.toCharArray()[0];
-        if(!parseStr.substring(1).equals(leptContext.getJson().substring(1,parseStr.length()))){
+        char[] parseChars = parseStr.toCharArray();
+        assert json[0] == parseChars[0];
+
+        if(json.length < parseChars.length || !parseStr.substring(1).equals(leptContext.getJson().substring(1,parseStr.length()))){
             return LEPT_PARSE_INVALID_VALUE;
         }
         leptContext.setJson(leptContext.getJson().substring(parseStr.length()));
@@ -62,7 +65,7 @@ public class LeptImpl implements LeptJson{
 
     private static ResultType leptParseNumber(LeptContext leptContext, LeptValue leptValue){
         String json = leptContext.getJson();
-        Pattern pattern = Pattern.compile("^-?(0|[1-9][0-9]*)(\\.[0-9]+)?((e|E)(\\-|\\+)?[0-9]*)?$");
+        Pattern pattern = Pattern.compile("^-?(0|[1-9][0-9]*)(\\.[0-9]+)?(([eE])([-+])?[0-9]*)?$");
         if(pattern.matcher(json).find()){
             leptValue.setN(Double.parseDouble(json));
             leptValue.setLeptType(LEPT_NUMBER);

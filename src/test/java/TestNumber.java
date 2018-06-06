@@ -29,6 +29,21 @@ public class TestNumber {
         TEST_NUMBER(1.234E+10, "1.234E+10");
         TEST_NUMBER(1.234E-10, "1.234E-10");
         TEST_NUMBER(0.0, "1e-10000"); /* must underflow */
+
+
+        TEST_NUMBER(1.0000000000000002, "1.0000000000000002");
+        /* minimum denormal */
+        TEST_NUMBER( 4.9406564584124654e-324, "4.9406564584124654e-324");
+        TEST_NUMBER(-4.9406564584124654e-324, "-4.9406564584124654e-324");
+        /* Max subnormal double */
+        TEST_NUMBER( 2.2250738585072009e-308, "2.2250738585072009e-308");
+        TEST_NUMBER(-2.2250738585072009e-308, "-2.2250738585072009e-308");
+        /* Min normal positive double */
+        TEST_NUMBER( 2.2250738585072014e-308, "2.2250738585072014e-308");
+        TEST_NUMBER(-2.2250738585072014e-308, "-2.2250738585072014e-308");
+        /* Max double */
+        TEST_NUMBER( 1.7976931348623157e+308, "1.7976931348623157e+308");
+        TEST_NUMBER(-1.7976931348623157e+308, "-1.7976931348623157e+308");
     }
     @Test
     public void TestError(){
@@ -40,6 +55,8 @@ public class TestNumber {
         TEST_ERROR(LEPT_PARSE_INVALID_VALUE, "inf");
         TEST_ERROR(LEPT_PARSE_INVALID_VALUE, "NAN");
         TEST_ERROR(LEPT_PARSE_INVALID_VALUE, "nan");
+
+
     }
 
 }
