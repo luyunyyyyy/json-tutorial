@@ -4,6 +4,8 @@ import Util.LeptContext;
 import Util.LeptType;
 import Util.ResultType;
 
+import java.util.regex.Pattern;
+
 import static Util.LeptType.*;
 import static Util.ResultType.*;
 
@@ -19,7 +21,7 @@ public class LeptImpl implements LeptJson{
         if(result == LEPT_PARSE_OK){
             leptParseWhitespace(leptContext);
             if(leptContext.getJson().length()!=0){
-
+                // 解析数字的时候 这个地方出现了问题 导致返回值出错
                 result =  LEPT_PARSE_ROOT_NOT_SINGULAR;
             }
         }
@@ -60,9 +62,15 @@ public class LeptImpl implements LeptJson{
 
     private static ResultType leptParseNumber(LeptContext leptContext, LeptValue leptValue){
         String json = leptContext.getJson();
-        leptValue.setN(Double.parseDouble(json));
-        leptValue.setLeptType(LEPT_NUMBER);
-        return LEPT_PARSE_OK;
+        Pattern pattern = Pattern.compile("^-?(0|[1-9][0-9]*)(\\.[0-9]+)?((e|E)(\\-|\\+)?[0-9]*)?$");
+        if(pattern.matcher(json).find()){
+            leptValue.setN(Double.parseDouble(json));
+            leptValue.setLeptType(LEPT_NUMBER);
+            leptContext.setJson(leptContext.getJson().substring(json.length()));
+            return LEPT_PARSE_OK;
+        }else
+            return LEPT_PARSE_INVALID_VALUE;
+
     }
 //    private static ResultType leptParseNull(LeptContext leptContext, src.LeptValue leptValue){
 //        char[] json = leptContext.getJson().toCharArray();
