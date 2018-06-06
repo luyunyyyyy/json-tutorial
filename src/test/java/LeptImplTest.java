@@ -1,4 +1,8 @@
+import Util.TestUtil;
 import org.junit.Test;
+import src.LeptImpl;
+import src.LeptJson;
+import src.LeptValue;
 
 import static Util.LeptType.LEPT_FALSE;
 import static Util.LeptType.LEPT_NULL;
@@ -19,8 +23,9 @@ public class LeptImplTest {
 
         assertEquals(leptJson.leptParse(leptValue, "null"), LEPT_PARSE_OK);
         assertEquals(leptValue.getLeptType(), LEPT_NULL);
-        assertEquals(leptJson.leptParse(leptValue, "nuull"), LEPT_PARSE_INVALID_VALUE);
-        assertEquals(leptValue.getLeptType(), LEPT_NULL); // 默认是 null
+//        assertEquals(leptJson.leptParse(leptValue, "nuull"), LEPT_PARSE_INVALID_VALUE);
+//        assertEquals(leptValue.getLeptType(), LEPT_NULL); // 默认是 null
+        TestUtil.TEST_ERROR(LEPT_PARSE_INVALID_VALUE, "nuull");
         assertEquals(leptJson.leptParse(leptValue, " null"), LEPT_PARSE_OK);
         assertEquals(leptValue.getLeptType(), LEPT_NULL);
         assertEquals(leptJson.leptParse(leptValue, "    null"), LEPT_PARSE_OK);

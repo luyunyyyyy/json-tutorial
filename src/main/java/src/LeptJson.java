@@ -1,3 +1,5 @@
+package src;
+
 import Util.ResultType;
 
 public interface LeptJson {
